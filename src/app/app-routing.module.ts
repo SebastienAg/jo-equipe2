@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {MedalsTableComponent} from "./medals-table/medals-table.component";
 import {PerformancesTableComponent} from "./performances-table/performances-table.component";
+import {MapJoComponent} from "./map-jo/map-jo.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'performances',
     component: PerformancesTableComponent
+  },
+  {
+    path: 'mapJo',
+    component: MapJoComponent
   }
 ];
 

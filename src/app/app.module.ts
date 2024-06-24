@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { MedalsTableComponent } from './medals-table/medals-table.component';
 import { PerformancesTableComponent } from './performances-table/performances-table.component';
+import { MapJoComponent } from './map-jo/map-jo.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PerformancesTableComponent } from './performances-table/performances-ta
     NavbarComponent,
     HomeComponent,
     MedalsTableComponent,
-    PerformancesTableComponent
+    PerformancesTableComponent,
+    MapJoComponent
   ],
   imports: [
     BrowserModule,

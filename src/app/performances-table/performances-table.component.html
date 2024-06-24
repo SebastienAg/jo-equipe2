@@ -12,20 +12,18 @@
             <tr>
                 <th scope="col">Heure de début</th>
                 <th scope="col">Discipline</th>
-                <th scope="col">Genre</th>
                 <th scope="col">Athlètes</th>
                 <th scope="col">Performances</th>
-                <th scope="col">Médaille</th>
+                <th scope="col">Classement</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let medal of selectedPerformances | keyvalue">
-                <td>{{ medal.value.dateTimeBegin }}</td>
+                <td>{{ medal.value.hour }}</td>
                 <td>{{ medal.value.sport }}</td>
-                <td>{{ medal.value.sex }}</td>
                 <td>{{ medal.key }}</td>
-                <td>{{ medal.value.mark }}</td>
-                <td>{{ medal.value.medals }}</td>
+                <td>{{ medal.value.recordTime }}</td>
+                <td>{{ medal.value.rank }}</td>
             </tr>
             <tr>
             </tbody>

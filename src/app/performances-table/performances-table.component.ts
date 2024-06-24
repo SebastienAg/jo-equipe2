@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as Papa from 'papaparse';
 
 @Component({
   selector: 'app-performances-table',
@@ -6,76 +7,50 @@ import { Component } from '@angular/core';
   styleUrls: ['./performances-table.component.css']
 })
 export class PerformancesTableComponent {
-  performances = new Map<string, {dateTimeBegin: string, sport: string, sex: string, mark: string, medals: string}>();
-  selectedPerformances = new Map<string, {dateTimeBegin: string, sport: string, sex: string, mark: string, medals: string}>();
+  performances = new Map<string, {rank: number, recordTime: string, hour: string, sport: string}>();
+  selectedPerformances = new Map<string, {rank: number, recordTime: string, hour: string, sport: string}>();
+
   remainingTime: number = 180;
   intervalId: any;
 
-    ngOnInit(): void {
-      this.performances.set('Thomas Fannon', {
-        dateTimeBegin: '2021-08-01T00:10:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '48.45',
-        medals: 'Gold'
+  constructor() {
+    this.getAthleteRecords('assets/Athle_D1.csv').then((athleteRecords) => {
+      this.performances = athleteRecords;
+    });
+  }
+
+  getAthleteRecords(filePath: string): Promise<Map<string, {rank: number, recordTime: string, hour: string, sport: string}>> {
+    return new Promise((resolve, reject) => {
+      Papa.parse(filePath, {
+        download: true,
+        header: true,
+        complete: (results) => {
+          let athleteRecords = new Map<string, {rank: number, recordTime: string, hour: string, sport: string}>();
+
+          for (let row of results.data) {
+            // @ts-ignore
+            let athleteName = row['NAME'];
+            // @ts-ignore
+            let rank = row['PLACE'];
+            //  @ts-ignore
+            let recordTime = row['MARK'];
+            //  @ts-ignore
+            let hour = row['HOUR'];
+            //  @ts-ignore
+            let sport = row['SPORT'];
+
+            if (athleteName && rank && recordTime) {
+              athleteRecords.set(athleteName, {rank: rank, recordTime: recordTime, hour: hour, sport: sport});
+            }
+          }
+          resolve(athleteRecords);
+        },
+        error: (error) => {
+          reject(error);
+        }
       });
-      this.performances.set('Pawel Juraszek', {
-        dateTimeBegin: '2021-08-01T00:17:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '50.45',
-        medals: 'Bronze'
-      });
-      this.performances.set('Benjamin Proud', {
-        dateTimeBegin: '2021-08-01T00:30:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '52.45',
-        medals: 'Bronze'
-      });
-      this.performances.set('Filipe Gomes', {
-        dateTimeBegin: '2021-08-01T00:37:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '54.45',
-        medals: 'Bronze'
-      });
-      this.performances.set('Dylan Carter', {
-        dateTimeBegin: '2021-08-01T13:58:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '54.95',
-        medals: 'Bronze'
-      });
-      this.performances.set('Damien Shamambo', {
-        dateTimeBegin: '2021-08-01T14:10:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '58.15',
-        medals: 'Bronze'
-      });
-      this.performances.set('Camil Doua', {
-        dateTimeBegin: '2021-08-01T14:14:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '59.35',
-        medals: 'Bronze'
-      });
-      this.performances.set('Terence Tengue', {
-        dateTimeBegin: '2021-08-01T14:16:00Z',
-        sport: 'Qualification - Heat 11,50m nage libre',
-        sex: 'Homme',
-        mark: '54.25',
-        medals: 'Bronze'
-      });
-      this.performances.set('Adi Mesetovic', {
-        dateTimeBegin: '2021-08-01T14:50:00Z',
-        sport: 'Qualification - Heat 10,50m nage libre',
-        sex: 'Homme',
-        mark: '49.55',
-        medals: 'Gold'
-      });
-    }
+    });
+  }
 
   startCountdown(seconds: number) {
     this.remainingTime = seconds;
@@ -93,10 +68,10 @@ export class PerformancesTableComponent {
     const currentTime = new Date();
     this.performances.forEach((value, key) => {
       this.selectedPerformances.set(key, value);
-      const performanceTime = new Date(value.dateTimeBegin);
+      const performanceTime = new Date(value.hour);
       const diffInMinutes = Math.abs(currentTime.getTime() - performanceTime.getTime()) / (1000 * 60);
       if (diffInMinutes % 8 === 0) {
-        console.log(`Performance of ${key}: ${value.mark}`)
+        console.log(`Performance of ${key}: ${value.rank}`)
       }
     });
   }
