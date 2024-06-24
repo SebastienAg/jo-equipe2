@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { MedalsTableComponent } from './medals-table/medals-table.component';
+import { PerformancesTableComponent } from './performances-table/performances-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    MedalsTableComponent
+    MedalsTableComponent,
+    PerformancesTableComponent
   ],
   imports: [
     BrowserModule,
