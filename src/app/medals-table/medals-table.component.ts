@@ -6,14 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./medals-table.component.css']
 })
 export class MedalsTableComponent implements OnInit {
-  medals = [
-    { country: 'USA', gold: 39, silver: 41, bronze: 33 },
-    { country: 'China', gold: 38, silver: 32, bronze: 18 },
-    // add more countries...
-  ];
+  medals = new Map<string, {gold: number, silver: number, bronze: number}>();
 
-  constructor() { }
 
   ngOnInit(): void {
+    this.medals.set('USA', {gold: 39, silver: 41, bronze: 33});
+    this.medals.set('China', {gold: 38, silver: 32, bronze: 18});
+    // add more countries...
   }
 }

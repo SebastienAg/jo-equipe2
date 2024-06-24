@@ -1,15 +1,15 @@
-<nav class="navbar">
-    <div class="navbar-logo">
-        <img src="assets/logo-jo.png" alt="My App Logo" width="80"/>
-    </div>
-    <ul class="navbar-links">
-        <li><a routerLink="/home">Home</a></li>
-        <li><a routerLink="/medals">Tableau des médailles</a></li>
-        <li><a routerLink="/services">Performances des Athlètes</a></li>
-        <li><a routerLink="/blog">Statistiques Spécifiques</a></li>
-        <li><a routerLink="/contact">Classements Actualisés</a></li>
-    </ul>
-    <div class="navbar-actions">
-        <!-- Add login/logout buttons or user-related actions here -->
-    </div>
-</nav>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <img src="assets/logo-jo.png" alt="Logo" width="70" height="50" class="d-inline-block align-text-top">
+            <span class="fs-4"> JO 2024</span>
+        </a>
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" routerLink="/home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" aria-current="page" routerLink="/medals">Tableau des médailles</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/services">Performances des Athlètes</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/blog">Statistiques Spécifiques</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/contact">Classements Actualisés</a></li>
+        </ul>
+    </header>
+</div>
